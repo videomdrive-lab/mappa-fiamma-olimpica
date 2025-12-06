@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+
+<link rel="stylesheet" href="https://www.difesa.it/assets/leaflet/leaflet.css">
+
+<style>
+html, body {
+  margin:0;
+  padding:0;
+  width:100%;
+  height:100%;
+  background:#eaeaea;
+}
+#map {
+  width:100%;
+  height:500px;
+}
+</style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<script src="https://www.difesa.it/assets/leaflet/leaflet.js"></script>
+
+<script>
+var map = L.map('map').setView([42.5, 12.5], 6);
+
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19
+}).addTo(map);
+
+var cities = [
+  ["Livorno",   43.5485, 10.3106, "https://www.difesa.it/content/manifestazioni/giochi-olimpici-milano-cortina-2026/livorno/84444.html"],
+  ["Agrigento", 37.3111, 13.5767, "https://www.difesa.it/content/manifestazioni/giochi-olimpici-milano-cortina-2026/agrigento/84445.html"],
+  ["Parma",     44.8014, 10.3279, "https://www.difesa.it/content/manifestazioni/giochi-olimpici-milano-cortina-2026/parma/84446.html"],
+  ["Bolzano",   46.4983, 11.3548, "https://www.difesa.it/content/manifestazioni/giochi-olimpici-milano-cortina-2026/bolzano/84464.html"],
+  ["Livigno",   46.5386, 10.1357, "https://www.difesa.it/content/manifestazioni/giochi-olimpici-milano-cortina-2026/livigno/84447.html"]
+];
+
+cities.forEach(function(city) {
+  var marker = L.marker([city[1], city[2]]).addTo(map);
+  marker.bindPopup("<b>"+city[0]+"</b><br><a href='"+city[3]+"' target='_blank'>Apri pagina</a>");
+});
+</script>
+
+</body>
+</html>
