@@ -11,7 +11,6 @@ html, body {
   padding:0;
   width:100%;
   height:100%;
-  background:#eaeaea;
 }
 #map {
   width:100%;
@@ -26,10 +25,10 @@ html, body {
 <script src="https://www.difesa.it/assets/leaflet/leaflet.js"></script>
 
 <script>
-var map = L.map('map').setView([42.5, 12.5], 6);
+var map = L.map('map');
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  maxZoom: 19
+  maxZoom: 18
 }).addTo(map);
 
 var cities = [
@@ -40,9 +39,21 @@ var cities = [
   ["Livigno",   46.5386, 10.1357, "https://www.difesa.it/content/manifestazioni/giochi-olimpici-milano-cortina-2026/livigno/84447.html"]
 ];
 
+var bounds = [];
+
 cities.forEach(function(city) {
   var marker = L.marker([city[1], city[2]]).addTo(map);
-  marker.bindPopup("<b>"+city[0]+"</b><br><a href='"+city[3]+"' target='_blank'>Apri pagina</a>");
+
+  marker.bindPopup(
+    "<b>" + city[0] + "</b><br>" +
+    "<a href='" + city[3] + "' target='_blank'>Apri pagina</a>"
+  );
+
+  bounds.push([city[1], city[2]]);
+});
+
+map.fitBounds(bounds, {
+  padding: [40, 40]
 });
 </script>
 
